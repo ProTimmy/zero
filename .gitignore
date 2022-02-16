@@ -12,5 +12,4 @@ local.properties
 /kotlin-js-store
 
 # ios
-/ios/Pods
-/ios/Podfile.lock
+/ios/ios.xcodeproj/xcuserdata

@@ -1,0 +1,21 @@
+PODS:
+  - common (1.0)
+  - models (1.0)
+
+DEPENDENCIES:
+  - common (from `../common`)
+  - models (from `../models`)
+
+EXTERNAL SOURCES:
+  common:
+    :path: "../common"
+  models:
+    :path: "../models"
+
+SPEC CHECKSUMS:
+  common: 81c8b2c6bb70ed65820465debd455687f2acfc01
+  models: 560a85a29dd1fc1c439169b4d925cfe0186f1dd9
+
+PODFILE CHECKSUM: 840328b2c1529940ee532353434b75a659468268
+
+COCOAPODS: 1.11.2

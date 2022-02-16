@@ -13,3 +13,4 @@ include(":components")
 include(":models")
 
 include(":android")
+include(":desktop")

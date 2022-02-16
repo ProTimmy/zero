@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
 	kotlin("multiplatform")
 	id("com.android.library")
@@ -20,7 +22,7 @@ android {
 
 kotlin {
 	android()
-	jvm("desktop")
+	jvm()
 
 	js(IR) {
 		useCommonJs()
@@ -64,6 +66,8 @@ kotlin {
 		}
 		val androidMain by getting
 		val androidTest by getting
+		val jvmMain by getting
+		val jvmTest by getting
 		val iosX64Main by getting
 		val iosArm64Main by getting
 		val iosSimulatorArm64Main by getting
@@ -82,6 +86,12 @@ kotlin {
 			iosArm64Test.dependsOn(this)
 			iosSimulatorArm64Test.dependsOn(this)
 		}
+	}
+}
+
+tasks.withType<KotlinCompile> {
+	kotlinOptions {
+		jvmTarget = "1.8"
 	}
 }
 
