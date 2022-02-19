@@ -43,6 +43,9 @@ dependencies {
 	implementation("androidx.activity:activity-compose:1.5.0-alpha01")
 	debugImplementation("androidx.compose.ui:ui-tooling:1.2.0-alpha02")
 
+    // Decompose
+    implementation("com.arkivanov.decompose:decompose:0.5.1")
+
 	// Testing
 	androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.2.0-alpha02")
 }

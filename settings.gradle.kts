@@ -12,5 +12,5 @@ include(":common")
 include(":components")
 include(":models")
 
-include(":android")
+// include(":android")
 include(":desktop")

@@ -6,7 +6,5 @@ import com.zero.models.core.TextModel
 
 @Composable
 fun TextComponent(model: TextModel) {
-    Text(
-        text = model.text
-    )
+    Text(text = model.text)
 }
