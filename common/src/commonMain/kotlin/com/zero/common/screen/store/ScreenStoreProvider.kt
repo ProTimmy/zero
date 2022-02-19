@@ -18,7 +18,7 @@ internal class ScreenStoreProvider(
         object :
             ScreenStore,
             Store<ScreenIntent, ScreenState, Nothing> by storeFactory.create(
-                name = "CommoStore",
+                name = "CommonStore",
                 initialState = ScreenState(),
                 bootstrapper = SimpleBootstrapper(Unit),
                 executorFactory = ::ScreenExecutor,
@@ -30,7 +30,7 @@ internal class ScreenStoreProvider(
             val rootComponents: List<String>,
             val components: HashMap<String, ComponentModel>,
         ) : ScreenMessage()
-        data class UpdateModel(val id: String, val counter: Int) : ScreenMessage()
+        data class UpdateModel(val id: String) : ScreenMessage()
     }
 
     private inner class ScreenExecutor :
@@ -39,7 +39,7 @@ internal class ScreenStoreProvider(
             when (intent) {
                 is ScreenIntent.Init -> intentInit(intent.rootComponents, intent.components)
                 is ScreenIntent.UpdateModel ->
-                    dispatch(ScreenMessage.UpdateModel(intent.id, intent.counter))
+                    dispatch(ScreenMessage.UpdateModel(intent.id))
             }
 
         private fun intentInit(
@@ -58,7 +58,10 @@ internal class ScreenStoreProvider(
                     components = msg.components
                 )
                 is ScreenMessage.UpdateModel ->
-                    copy(components = this.components.updateModel(msg.id, msg.counter))
+                    copy(
+                        counter = counter + 1,
+                        components = this.components.updateModel(msg.id, this.counter + 1)
+                    )
             }
 
         /**

@@ -14,10 +14,11 @@ interface ScreenStore : Store<ScreenIntent, ScreenState, Nothing> {
             val components: HashMap<String, ComponentModel>,
         ) : ScreenIntent()
 
-        data class UpdateModel(val id: String, val counter: Int) : ScreenIntent()
+        data class UpdateModel(val id: String) : ScreenIntent()
     }
 
     data class ScreenState(
+        val counter: Int = 0,
         val components: HashMap<String, ComponentModel> = HashMap(),
         val rootComponents: List<String> = listOf(),
     )
@@ -25,6 +26,7 @@ interface ScreenStore : Store<ScreenIntent, ScreenState, Nothing> {
 
 fun ScreenState.toModel(): ScreenComponent.Model =
     ScreenComponent.Model(
+        counter = this.counter,
         components = this.components,
         rootComponents = this.rootComponents,
     )
