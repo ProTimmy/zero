@@ -21,11 +21,6 @@ android {
 	}
 }
 
-// compose.experimental {
-//     web.application {}
-//     uikit.application {}
-// }
-
 kotlin {
 	android()
 	jvm("desktop")
@@ -33,12 +28,21 @@ kotlin {
 	sourceSets {
 		val commonMain by getting {
 			dependencies {
+                implementation(project(":common"))
 				api(project(":models"))
 
+                // Arrow
+                implementation("io.arrow-kt:arrow-core:1.0.1")
+
+                // Compose
 				implementation(compose.runtime)
 				implementation(compose.foundation)
 				implementation(compose.ui)
 				implementation(compose.material)
+
+                // Decompose
+                implementation("com.arkivanov.decompose:decompose:0.5.1")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.1")
 			}
 		}
 		val commonTest by getting {

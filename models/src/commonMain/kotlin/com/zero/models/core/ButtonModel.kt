@@ -6,5 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @SerialName(CoreComponentModel.BUTTON_MODEL)
 data class ButtonModel(
-    val text: String,
+    override val isRoot: Boolean = false,
+    val text: String = BUTTON_MODEL,
+    val onClick: () -> Unit = { },
 ) : CoreComponentModel()

@@ -10,6 +10,5 @@ abstract class CoreComponentModel : ComponentModel() {
     internal companion object {
         const val BUTTON_MODEL = "BUTTON"
         const val TEXT_MODEL = "TEXT"
-        const val SCREEN_MODEL = "SCREEN"
     }
 }
