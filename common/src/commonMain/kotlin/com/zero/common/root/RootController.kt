@@ -51,12 +51,7 @@ internal constructor(
                 Child.Screen(screen(componentContext, Consumer(::onScreenOutput)))
         }
 
-    private fun onScreenOutput(output: ScreenComponent.Output): Unit =
-        when (output) {
-            //            is TodoMain.Output.Selected -> router.push(Configuration.Edit(itemId =
-            // output.id))
-            else -> Unit
-        }
+    private fun onScreenOutput(output: ScreenComponent.Output): Unit = Unit
 
     sealed class Configuration : Parcelable {
         @Parcelize

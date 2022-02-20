@@ -4,52 +4,40 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
-import com.zero.common.CommonAction
-import com.zero.common.CommonViewModel
-import com.zero.components.ComponentComposer
+import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.ExperimentalDecomposeApi
+import com.arkivanov.decompose.defaultComponentContext
+import com.arkivanov.decompose.extensions.compose.jetbrains.Children
+import com.arkivanov.decompose.extensions.compose.jetbrains.animation.child.crossfadeScale
+import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
+import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
+import com.zero.common.root.RootComponent
+import com.zero.common.root.RootComponent.Child.Screen
+import com.zero.common.root.RootController
+import com.zero.components.core.ScreenComponent
 
 class MainActivity : AppCompatActivity() {
-    private val viewModel = CommonViewModel()
-
-    // 	private val mockScreenModel = ScreenModel(
-    // 		content = listOf(
-    // 			ColumnModel(
-    // 				content = listOf(
-    // 					RowModel(
-    // 						content = listOf(
-    // 							TextModel(text = "Hello"),
-    // 							TextModel(text = "world!")
-    // 						)
-    // 					),
-    // 					RowModel(
-    // 						content = listOf(
-    // 							TextModel(text = "Test"),
-    // 							TextModel(text = "1")
-    // 						)
-    // 					),
-    // 					RowModel(
-    // 						content = listOf(
-    // 							TextModel(text = "Test"),
-    // 							TextModel(text = "2")
-    // 						)
-    // 					),
-    // 				)
-    // 			)
-    // 		)
-    // 	)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.dispatch(CommonAction.Init(mockScreenModel))
-
-        setContent { MainView(viewModel = viewModel) }
+        setContent {
+            MainContent(createRootComponent(defaultComponentContext()))
+        }
     }
 }
 
-@Composable
-fun MainView(viewModel: CommonViewModel) {
-    val state = viewModel.observeState().collectAsState()
+private fun createRootComponent(componentContext: ComponentContext): RootComponent =
+    RootController(
+        componentContext = componentContext,
+        storeFactory = LoggingStoreFactory(TimeTravelStoreFactory()),
+    )
 
-    ComponentComposer(model = state.value.screenModel)
+@OptIn(ExperimentalDecomposeApi::class)
+@Composable
+fun MainContent(rootComponent: RootComponent) {
+    Children(routerState = rootComponent.routerState, animation = crossfadeScale()) {
+        when (val child = it.instance) {
+            is Screen -> ScreenComponent(child.component)
+        }
+    }
 }
