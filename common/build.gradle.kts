@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	kotlin("multiplatform")
 	id("com.android.library")
+    id("kotlin-parcelize")
 
 	// iOS
 	kotlin("native.cocoapods")
@@ -52,8 +53,22 @@ kotlin {
 			dependencies {
 				api(project(":models"))
 
+                // Arrow
+                implementation("io.arrow-kt:arrow-core:1.0.1")
+
 				// Coroutines
 				implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+
+				// Decompose
+				implementation("com.arkivanov.decompose:decompose:0.5.1")
+
+				// Reaktive
+				implementation("com.badoo.reaktive:reaktive:1.2.1")
+
+				// MVIKotlin
+				implementation("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+                implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-reaktive:3.0.0-beta01")
+                implementation("com.arkivanov.mvikotlin:rx:3.0.0-beta01")
 			}
 		}
 		val commonTest by getting {

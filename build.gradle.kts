@@ -17,7 +17,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false// iOS
+    id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false // iOS
     id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 
     // Compose
@@ -159,6 +159,6 @@ tasks.withType<DokkaTask>().configureEach {
     outputDirectory.set(buildDir.resolve("dokka"))
 }
 
- rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class) {
-     rootProject.the(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension::class).nodeVersion = "16.0.0"
- }
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class) {
+    rootProject.the(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension::class).nodeVersion = "16.0.0"
+}

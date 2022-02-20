@@ -5,7 +5,6 @@ import arrow.core.none
 import com.benasher44.uuid.uuid4
 import com.zero.models.core.ButtonModel
 import com.zero.models.core.CoreComponentModel
-import com.zero.models.core.ScreenModel
 import com.zero.models.core.TextModel
 import com.zero.models.layouts.BoxModel
 import com.zero.models.layouts.ColumnModel
@@ -15,7 +14,8 @@ import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.MapSerializer
+import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.modules.SerializersModule
@@ -25,18 +25,20 @@ import kotlinx.serialization.modules.subclass
 @Polymorphic
 @Serializable
 abstract class ComponentModel {
-    val id: String = uuid4().toString()
+    abstract val isRoot: Boolean
+    var id: String = uuid4().toString() // TODO: val instead of var
 }
 
 object ComponentSerializer :
-    KSerializer<List<ComponentModel>> by ListSerializer(ComponentModel.serializer())
+    KSerializer<Map<String, ComponentModel>> by MapSerializer(
+        String.serializer(), ComponentModel.serializer()
+    )
 
 val ComponentSerializerModule = SerializersModule {
     polymorphic(ComponentModel::class) {
         /* Declare model definitions here */
         polymorphic(CoreComponentModel::class) {
             subclass(ButtonModel::class)
-            subclass(ScreenModel::class)
             subclass(TextModel::class)
         }
 
@@ -49,48 +51,38 @@ val ComponentSerializerModule = SerializersModule {
 }
 
 class ComponentModelEngine {
-    private val jsonBuilder = Json {
-        serializersModule = ComponentSerializerModule
-    }
+    private val jsonBuilder = Json { serializersModule = ComponentSerializerModule }
 
-    fun fromJsonString(json: Option<String>): Option<List<ComponentModel>> {
+    fun fromJsonString(json: Option<String>): Option<HashMap<String, ComponentModel>> {
         return try {
-            json.map {
-                jsonBuilder.decodeFromString(ComponentSerializer, it)
-            }
+            json.map { HashMap(jsonBuilder.decodeFromString(ComponentSerializer, it)) }
         } catch (ex: SerializationException) {
             // TODO: Handle or log exception
             none()
         }
     }
 
-    fun fromJsonObject(json: Option<JsonElement>): Option<List<ComponentModel>> {
+    fun fromJsonObject(json: Option<JsonElement>): Option<HashMap<String, ComponentModel>> {
         return try {
-            json.map {
-                jsonBuilder.decodeFromJsonElement(ComponentSerializer, it)
-            }
+            json.map { HashMap(jsonBuilder.decodeFromJsonElement(ComponentSerializer, it)) }
         } catch (ex: SerializationException) {
             // TODO: Handle or log exception
             none()
         }
     }
 
-    fun toJsonObject(components: Option<List<ComponentModel>>): Option<JsonElement> {
+    fun toJsonObject(components: Option<HashMap<String, ComponentModel>>): Option<JsonElement> {
         return try {
-            components.map {
-                jsonBuilder.encodeToJsonElement(ComponentSerializer, it)
-            }
+            components.map { jsonBuilder.encodeToJsonElement(ComponentSerializer, it) }
         } catch (ex: SerializationException) {
             // TODO: Handle or log exception
             none()
         }
     }
 
-    fun toJsonString(components: Option<List<ComponentModel>>): Option<String> {
+    fun toJsonString(components: Option<HashMap<String, ComponentModel>>): Option<String> {
         return try {
-            components.map {
-                jsonBuilder.encodeToString(ComponentSerializer, it)
-            }
+            components.map { jsonBuilder.encodeToString(ComponentSerializer, it) }
         } catch (ex: SerializationException) {
             // TODO: Handle or log exception
             none()

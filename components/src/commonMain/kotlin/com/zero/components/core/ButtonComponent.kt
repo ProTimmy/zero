@@ -7,9 +7,5 @@ import com.zero.models.core.ButtonModel
 
 @Composable
 fun ButtonComponent(model: ButtonModel) {
-    Button(
-        onClick = { /* noop */ }
-    ) {
-        Text(model.text)
-    }
+    Button(onClick = model.onClick) { Text(model.text) }
 }

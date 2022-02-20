@@ -19,13 +19,32 @@ kotlin {
 				implementation(project(":common"))
 				api(project(":models"))
 				api(project(":components"))
+
+                // Decompose
+                implementation("com.arkivanov.decompose:decompose:0.5.1")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.1")
+
+                // MVIKotlin
+                implementation("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+                implementation("com.arkivanov.mvikotlin:mvikotlin-main:3.0.0-beta01")
+                implementation("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+                implementation("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
+
+                // Reaktive
+                implementation("com.badoo.reaktive:reaktive:1.2.1")
+                implementation("com.badoo.reaktive:coroutines-interop:1.2.1")
 			}
 		}
 	}
 }
 
 tasks.withType<KotlinCompile> {
-	kotlinOptions.jvmTarget = "1.8"
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+        }
+    }
 }
 
 compose.desktop {
