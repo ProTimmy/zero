@@ -5,8 +5,6 @@ plugins {
 
 	kotlin("multiplatform")
 	id("com.android.library")
-
-	kotlin("native.cocoapods")
 }
 
 version = "1.0"
@@ -36,24 +34,16 @@ kotlin {
 		}
 	}
 
-	val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-		when {
-			System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
-			System.getenv("NATIVE_ARCH")
-				?.startsWith("arm") == true -> ::iosSimulatorArm64 // available to KT 1.5.30
-			else -> ::iosX64
-		}
-	iosTarget("ios") {}
-
-	cocoapods {
-		summary = "Some description for the Models Module"
-		homepage = "Link to the Models Module homepage"
-		ios.deploymentTarget = "14.1"
-		podfile = project.file("../ios/Podfile")
-		framework {
-			baseName = "models"
+	ios {
+		binaries {
+			framework {
+				baseName = "models"
+			}
 		}
 	}
+//	iosX64()
+//	iosArm64()
+//	iosSimulatorArm64()
 
 	sourceSets {
 		val commonMain by getting {
@@ -74,7 +64,29 @@ kotlin {
 		val jvmTest by getting
 		val jsMain by getting
 		val jsTest by getting
-		val iosMain by getting
-		val iosTest by getting
+//		val iosX64Main by getting
+//		val iosArm64Main by getting
+//		val iosSimulatorArm64Main by getting
+		val iosMain by getting {
+			dependsOn(commonMain)
+//			iosX64Main.dependsOn(this)
+//			iosArm64Main.dependsOn(this)
+//			iosSimulatorArm64Main.dependsOn(this)
+		}
+//		val iosX64Test by getting
+//		val iosArm64Test by getting
+//		val iosSimulatorArm64Test by getting
+		val iosTest by getting {
+			dependsOn(commonTest)
+//			iosX64Test.dependsOn(this)
+//			iosArm64Test.dependsOn(this)
+//			iosSimulatorArm64Test.dependsOn(this)
+		}
+	}
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+	kotlinOptions {
+		jvmTarget = "1.8"
 	}
 }

@@ -18,7 +18,6 @@ buildscript {
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false // iOS
-    id("com.chromaticnoise.multiplatform-swiftpackage") version "2.0.3"
 
     // Compose
     id("org.jetbrains.compose") version "1.1.0-alpha04"
