@@ -34,13 +34,14 @@ kotlin {
 		}
 	}
 
-	ios {
-		binaries {
-			framework {
-				baseName = "models"
-			}
-		}
-	}
+	ios()
+//	ios {
+//		binaries {
+//			framework {
+//				baseName = "models"
+//			}
+//		}
+//	}
 //	iosX64()
 //	iosArm64()
 //	iosSimulatorArm64()
@@ -48,8 +49,6 @@ kotlin {
 	sourceSets {
 		val commonMain by getting {
 			dependencies {
-				implementation("io.arrow-kt:arrow-core:1.0.1")
-
 				implementation("com.benasher44:uuid:0.4.0")
 
 				implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
@@ -68,7 +67,7 @@ kotlin {
 //		val iosArm64Main by getting
 //		val iosSimulatorArm64Main by getting
 		val iosMain by getting {
-			dependsOn(commonMain)
+//			dependsOn(commonMain)
 //			iosX64Main.dependsOn(this)
 //			iosArm64Main.dependsOn(this)
 //			iosSimulatorArm64Main.dependsOn(this)
@@ -77,7 +76,7 @@ kotlin {
 //		val iosArm64Test by getting
 //		val iosSimulatorArm64Test by getting
 		val iosTest by getting {
-			dependsOn(commonTest)
+//			dependsOn(commonTest)
 //			iosX64Test.dependsOn(this)
 //			iosArm64Test.dependsOn(this)
 //			iosSimulatorArm64Test.dependsOn(this)

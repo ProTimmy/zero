@@ -1,6 +1,5 @@
 package com.zero.common.screen.store
 
-import arrow.core.toOption
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.SimpleBootstrapper
 import com.arkivanov.mvikotlin.core.store.Store
@@ -133,8 +132,8 @@ internal class ScreenStoreProvider(
             id: String,
             counter: Int
         ): HashMap<String, ComponentModel> {
-            val model = this[id].toOption()
-            model.map { component ->
+            val model = this[id]
+            model?.let { component ->
                 if (component is TextModel) this[id] = component.copy(text = counter.toString())
             }
 

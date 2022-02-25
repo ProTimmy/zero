@@ -1,8 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.compose.compose
 
 plugins {
-    id("com.android.application")
     kotlin("multiplatform")
+    id("com.android.application")
+
+    id("org.jetbrains.compose")
 }
 
 android {
@@ -19,13 +22,18 @@ android {
             isMinifyEnabled = false
         }
     }
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 
     buildFeatures {
         compose = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-alpha02"
+        kotlinCompilerExtensionVersion = "1.2.0-alpha03"
     }
 }
 
@@ -43,14 +51,12 @@ kotlin {
     sourceSets {
         val androidAndroidTest by getting {
             dependencies {
-
                 // Testing
                 implementation("androidx.compose.ui:ui-test-junit4:1.2.0-alpha02")
             }
         }
         val androidDebug by getting {
             dependencies {
-
                 implementation("androidx.compose.ui:ui-tooling:1.2.0-alpha02")
             }
         }
@@ -63,13 +69,11 @@ kotlin {
                 // AppCompat
                 implementation("androidx.appcompat:appcompat:1.4.1")
 
-                // Arrow
-                implementation("io.arrow-kt:arrow-core:1.0.1")
-
                 // Compose
-                implementation("androidx.compose.ui:ui:1.2.0-alpha02")
-                implementation("androidx.compose.material:material:1.2.0-alpha02")
-                implementation("androidx.compose.ui:ui-tooling-preview:1.2.0-alpha02")
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.ui)
+                implementation(compose.material)
                 implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
                 implementation("androidx.activity:activity-compose:1.5.0-alpha01")
 

@@ -1,7 +1,6 @@
 package com.zero.components
 
 import androidx.compose.runtime.Composable
-import arrow.core.Option
 import com.zero.components.core.ButtonComponent
 import com.zero.components.core.TextComponent
 import com.zero.components.layouts.BoxComponent
@@ -19,7 +18,7 @@ import com.zero.models.layouts.RowModel
 @Composable
 fun ComponentComposer(
     model: ComponentModel,
-    componentModelRetriever: (String) -> Option<ComponentModel>
+    componentModelRetriever: (String) -> ComponentModel?
 ) {
     when (model) {
         is CoreComponentModel -> CoreComponentComposer(model)
@@ -38,7 +37,7 @@ private fun CoreComponentComposer(model: CoreComponentModel) {
 @Composable
 private fun LayoutComponentComposer(
     model: LayoutComponentModel,
-    componentModelRetriever: (String) -> Option<ComponentModel>
+    componentModelRetriever: (String) -> ComponentModel?
 ) {
     when (model) {
         is BoxModel -> BoxComponent(model, componentModelRetriever)

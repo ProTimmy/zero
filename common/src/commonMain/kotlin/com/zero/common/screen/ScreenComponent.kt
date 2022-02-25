@@ -1,6 +1,5 @@
 package com.zero.common.screen
 
-import arrow.core.Option
 import com.arkivanov.decompose.value.Value
 import com.zero.models.ComponentModel
 
@@ -17,7 +16,7 @@ interface ScreenComponent {
 
     fun updateModel(componentId: String) // TODO: Implement real functionality
 
-    fun getComponentModel(id: String): Option<ComponentModel>
+    fun getComponentModel(id: String): ComponentModel?
 
     sealed class Output
 }

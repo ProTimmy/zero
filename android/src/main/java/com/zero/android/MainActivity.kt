@@ -14,7 +14,7 @@ import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.zero.common.root.RootComponent
 import com.zero.common.root.RootComponent.Child.Screen
 import com.zero.common.root.RootController
-import com.zero.components.core.ScreenComponent
+import com.zero.components.ScreenComponent
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

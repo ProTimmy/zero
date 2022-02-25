@@ -1,7 +1,22 @@
 plugins {
-    id("org.jetbrains.gradle.apple.applePlugin") version "212.4638.14-0.14"
-    kotlin("multiplatform")
+    id("org.jetbrains.gradle.apple.applePlugin") version "212.4638.14-0.15"
+//    kotlin("multiplatform")
+//    kotlin("native.cocoapods")
 }
+
+version = "1.0"
+//kotlin {
+//    ios()
+//    cocoapods {
+//        summary = "Kotlin sample project with CocoaPods dependencies"
+//        homepage = "https://github.com/Kotlin/kotlin-with-cocoapods-sample"
+//        ios.deploymentTarget = "14.1"
+////        pod("common") {
+////            version = "1.0"
+////            source = path(project.file("../common"))
+////        }
+//    }
+//}
 
 apple {
     iosApp {
@@ -12,7 +27,7 @@ apple {
 
         dependencies {
             implementation(project(":common"))
-            implementation(project(":models"))
+//            implementation(project(":models"))
         }
     }
 }

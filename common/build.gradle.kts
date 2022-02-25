@@ -4,6 +4,9 @@ plugins {
 	kotlin("multiplatform")
 	id("com.android.library")
     id("kotlin-parcelize")
+
+	// Cocoapods
+//	kotlin("native.cocoapods")
 }
 
 version = "1.0"
@@ -35,15 +38,39 @@ kotlin {
 			framework {
 				baseName = "common"
 				transitiveExport = true
+				isStatic = false
+
+				export(project(":models"))
 
 				// Decompose
 				export("com.arkivanov.decompose:decompose:0.5.1")
 
 				// MVIKotlin
 				export("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+				export("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+				export("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
 			}
 		}
 	}
+
+//	cocoapods {
+//		summary = "Some description for the Shared Module"
+//		homepage = "Link to the Shared Module homepage"
+//		ios.deploymentTarget = "14.1"
+//		framework {
+//			baseName = "common"
+//			transitiveExport = true
+//			isStatic = false
+//
+//			// Decompose
+//			export("com.arkivanov.decompose:decompose:0.5.1")
+//
+//			// MVIKotlin
+//			export("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+//			export("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+//			export("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
+//		}
+//	}
 //	iosX64()
 //	iosArm64()
 //	iosSimulatorArm64()
@@ -52,9 +79,6 @@ kotlin {
 		val commonMain by getting {
 			dependencies {
 				api(project(":models"))
-
-                // Arrow
-                implementation("io.arrow-kt:arrow-core:1.0.1")
 
 				// Coroutines
 				implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
@@ -68,7 +92,10 @@ kotlin {
 				// MVIKotlin
 				implementation("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
                 implementation("com.arkivanov.mvikotlin:mvikotlin-extensions-reaktive:3.0.0-beta01")
-                implementation("com.arkivanov.mvikotlin:rx:3.0.0-beta01")
+				implementation("com.arkivanov.mvikotlin:mvikotlin-main:3.0.0-beta01")
+				implementation("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+				implementation("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
+				implementation("com.arkivanov.mvikotlin:rx:3.0.0-beta01")
 			}
 		}
 		val commonTest by getting {
@@ -88,11 +115,15 @@ kotlin {
 //		val iosSimulatorArm64Main by getting
 		val iosMain by getting {
 			dependencies {
+				api(project(":models"))
+
 				// Decompose
 				api("com.arkivanov.decompose:decompose:0.5.1")
 
 				// MVIKotlin
 				api("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+				api("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+				api("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
 			}
 
 //			iosX64Main.dependsOn(this)

@@ -24,7 +24,7 @@ public class ObservableValue<T : AnyObject> : ObservableObject {
         self.observer = { value in
             self.value = value
         }
-        observableValue.subscribe(observer: observer!)
+        observableValue.subscribe(observer_: observer!)
     }
     
     deinit {

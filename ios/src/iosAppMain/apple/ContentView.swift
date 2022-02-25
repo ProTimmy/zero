@@ -7,14 +7,14 @@ struct ContentView: View {
         ComponentHolder {
             RootController(
                 componentContext: $0,
-                storeFactory: TimeTravelStoreFactory()
+                storeFactory: LoggingStoreFactory(delegate: TimeTravelStoreFactory())
             )
         }
 
-    let greet = "Hello world"
-
     var body: some View {
-        Text(greet)
+        RootView(componentHolder.component)
+            .onAppear { LifecycleRegistryExtKt.resume(self.componentHolder.lifecycle) }
+            .onDisappear { LifecycleRegistryExtKt.resume(self.componentHolder.lifecycle) }
     }
 }
 

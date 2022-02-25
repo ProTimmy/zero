@@ -1,4 +1,4 @@
-package com.zero.components.core
+package com.zero.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +20,9 @@ fun ScreenComponent(screenComponent: ScreenComponent) {
 
     Box(modifier = Modifier.fillMaxSize()) {
         for (componentId in model.rootComponents) {
-            screenComponent.getComponentModel(componentId).map { component -> ComponentComposer(component, screenComponent::getComponentModel) }
+            screenComponent.getComponentModel(componentId)?.let { component ->
+                ComponentComposer(component, screenComponent::getComponentModel)
+            }
         }
     }
 }
