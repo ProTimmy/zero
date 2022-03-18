@@ -4,7 +4,7 @@ import common
 struct ContentView: View {
     @State
     private var componentHolder =
-        ComponentHolder {
+        ComponentHolder<RootComponent> {
             RootController(
                 componentContext: $0,
                 storeFactory: LoggingStoreFactory(delegate: TimeTravelStoreFactory())
@@ -12,9 +12,11 @@ struct ContentView: View {
         }
 
     var body: some View {
-        RootView(componentHolder.component)
-            .onAppear { LifecycleRegistryExtKt.resume(self.componentHolder.lifecycle) }
-            .onDisappear { LifecycleRegistryExtKt.resume(self.componentHolder.lifecycle) }
+        GeometryReader { geometry in
+            RootView(componentHolder.component)
+                .onAppear { LifecycleRegistryExtKt.resume(componentHolder.lifecycle) }
+                .onDisappear { LifecycleRegistryExtKt.resume(componentHolder.lifecycle) }
+        }
     }
 }
 

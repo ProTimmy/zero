@@ -9,14 +9,14 @@ import com.arkivanov.essenty.parcelable.Parcelize
 import com.arkivanov.mvikotlin.core.store.StoreFactory
 import com.badoo.reaktive.base.Consumer
 import com.zero.common.root.RootComponent.Child
-import com.zero.common.screen.ScreenComponent
+import com.zero.common.screen.Screen
 import com.zero.common.screen.ScreenController
 import com.zero.common.utils.Consumer
 
 class RootController
 internal constructor(
     componentContext: ComponentContext,
-    private val screen: (ComponentContext, Consumer<ScreenComponent.Output>) -> ScreenComponent,
+    private val screen: (ComponentContext) -> Screen,
 ) : RootComponent, ComponentContext by componentContext {
 
     constructor(
@@ -24,11 +24,10 @@ internal constructor(
         storeFactory: StoreFactory,
     ) : this(
         componentContext = componentContext,
-        screen = { childContext, output ->
+        screen = { childContext ->
             ScreenController(
                 componentContext = childContext,
                 storeFactory = storeFactory,
-                output = output,
             )
         },
     )
@@ -47,11 +46,8 @@ internal constructor(
         componentContext: ComponentContext
     ): Child =
         when (configuration) {
-            is Configuration.Screen ->
-                Child.Screen(screen(componentContext, Consumer(::onScreenOutput)))
+            is Configuration.Screen -> Child.Screen(screen(componentContext))
         }
-
-    private fun onScreenOutput(output: ScreenComponent.Output): Unit = Unit
 
     sealed class Configuration : Parcelable {
         @Parcelize

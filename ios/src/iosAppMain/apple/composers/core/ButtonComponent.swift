@@ -6,15 +6,20 @@ import SwiftUI
 import common
 
 public struct ButtonComponent: View {
-    let model: ButtonModel
+    @ObservedObject
+    private var componentState: ObservableValue<ComponentState>
 
-    public init(_ buttonModel: ButtonModel) {
-        self.model = buttonModel
+    public init(component: Component) {
+        componentState = ObservableValue<ComponentState>(component.state)
     }
 
     public var body : some View {
-        Button(action: model.onClick) {
-            Text(model.text)
+        if let buttonModel = componentState.value.componentModel as? ButtonModel {
+            Button(action: buttonModel.onClick) {
+                Text(buttonModel.text)
+            }
+        } else {
+            EmptyView()
         }
     }
 }

@@ -18,7 +18,7 @@ import com.badoo.reaktive.scheduler.overrideSchedulers
 import com.zero.common.root.RootComponent
 import com.zero.common.root.RootComponent.Child
 import com.zero.common.root.RootController
-import com.zero.components.core.ScreenComponent
+import com.zero.components.ScreenComponent
 import com.zero.models.ComponentModel
 import com.zero.models.core.TextModel
 import com.zero.models.layouts.ColumnModel

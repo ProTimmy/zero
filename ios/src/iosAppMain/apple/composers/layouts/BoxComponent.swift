@@ -6,21 +6,25 @@ import SwiftUI
 import common
 
 public struct BoxComponent: View {
-    let model: BoxModel
-    let componentModelRetriever: (String) -> ComponentModel?
+    @ObservedObject
+    private var componentState: ObservableValue<ComponentState>
+    private let componentModelRetriever: (String) -> Component?
 
-    public init(boxModel: BoxModel, componentModelRetriever: @escaping (String) -> ComponentModel?) {
-        self.model = boxModel
+    public init(component: Component, componentModelRetriever: @escaping (String) -> Component?) {
         self.componentModelRetriever = componentModelRetriever
+
+        componentState = ObservableValue<ComponentState>(component.state)
     }
 
     public var body : some View {
-        ZStack {
-            ForEach(model.childComponents, id: \.self) { child in
-                if let componentModel = componentModelRetriever(child) {
-                    ComponentComposer(componentModel: componentModel, componentModelRetriever: componentModelRetriever)
+        if let boxModel = componentState.value.componentModel as? BoxModel {
+            ZStack {
+                ForEach(boxModel.childComponents, id: \.self) { componentId in
+                    ComponentComposer(id: componentId, componentModelRetriever: componentModelRetriever)
                 }
             }
+        } else {
+            EmptyView()
         }
     }
 }

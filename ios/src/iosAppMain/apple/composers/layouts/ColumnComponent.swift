@@ -6,21 +6,25 @@ import SwiftUI
 import common
 
 public struct ColumnComponent: View {
-    let model: ColumnModel
-    let componentModelRetriever: (String) -> ComponentModel?
+    @ObservedObject
+    private var componentState: ObservableValue<ComponentState>
+    private let componentModelRetriever: (String) -> Component?
 
-    public init(columnModel: ColumnModel, componentModelRetriever: @escaping (String) -> ComponentModel?) {
-        self.model = columnModel
+    public init(component: Component, componentModelRetriever: @escaping (String) -> Component?) {
         self.componentModelRetriever = componentModelRetriever
+
+        componentState = ObservableValue<ComponentState>(component.state)
     }
 
     public var body : some View {
-        VStack {
-            ForEach(model.childComponents, id: \.self) { child in
-                if let componentModel = componentModelRetriever(child) {
-                    ComponentComposer(componentModel: componentModel, componentModelRetriever: componentModelRetriever)
+        if let columnModel = componentState.value.componentModel as? ColumnModel {
+            VStack {
+                ForEach(columnModel.childComponents, id: \.self) { componentId in
+                    ComponentComposer(id: componentId, componentModelRetriever: componentModelRetriever)
                 }
             }
+        } else {
+            EmptyView()
         }
     }
 }

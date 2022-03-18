@@ -38,7 +38,7 @@ kotlin {
 			framework {
 				baseName = "common"
 				transitiveExport = true
-				isStatic = false
+				isStatic = true
 
 				export(project(":models"))
 
@@ -61,6 +61,8 @@ kotlin {
 //			baseName = "common"
 //			transitiveExport = true
 //			isStatic = false
+//
+//			export(project(":models"))
 //
 //			// Decompose
 //			export("com.arkivanov.decompose:decompose:0.5.1")
@@ -96,6 +98,9 @@ kotlin {
 				implementation("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
 				implementation("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
 				implementation("com.arkivanov.mvikotlin:rx:3.0.0-beta01")
+
+                // UUID
+                implementation("com.benasher44:uuid:0.4.0")
 			}
 		}
 		val commonTest by getting {

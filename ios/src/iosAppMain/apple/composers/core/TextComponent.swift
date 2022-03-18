@@ -6,13 +6,18 @@ import SwiftUI
 import common
 
 public struct TextComponent: View {
-    let model: TextModel
+    @ObservedObject
+    private var componentState: ObservableValue<ComponentState>
 
-    public init(_ textModel: TextModel) {
-        self.model = textModel
+    public init(component: Component) {
+        componentState = ObservableValue<ComponentState>(component.state)
     }
 
     public var body : some View {
-        Text(model.text)
+        if let textModel = componentState.value.componentModel as? TextModel {
+            Text(textModel.text)
+        } else {
+            EmptyView()
+        }
     }
 }

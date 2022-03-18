@@ -5,40 +5,47 @@
 import SwiftUI
 import common
 
-@ViewBuilder
-public func ComponentComposer(model: ComponentModel, componentModelRetriever: @escaping (String) -> ComponentModel) -> some View {
+public func ComponentComposer(id: String, componentModelRetriever: @escaping (String) -> Component?) -> AnyView {
+    let component = componentModelRetriever(id)
+
+    if let model = component?.state.value.componentModel {
+        switch model {
+        case let coreModel as CoreComponentModel:
+            return CoreComponentComposer(model: coreModel, component: component!)
+        case let layoutModel as LayoutComponentModel:
+            return LayoutComponentComposer(model: layoutModel, component: component!, componentModelRetriever: componentModelRetriever)
+        default:
+            return EmptyView().toAny()
+        }
+    }
+
+    return EmptyView().toAny()
+}
+
+func CoreComponentComposer(model: CoreComponentModel, component: Component) -> AnyView {
     switch model {
-    case let coreModel as CoreComponentModel:
-        CoreComponentComposer(model: coreModel)
-    case let layoutModel as LayoutComponentModel:
-        LayoutComponentComposer(model: layoutModel, componentModelRetriever: componentModelRetriever)
+    case _ as TextModel:
+        return TextComponent(component: component).toAny()
+    case _ as ButtonModel:
+        return ButtonComponent(component: component).toAny()
     default:
-        EmptyView()
+        return EmptyView().toAny()
     }
 }
 
-@ViewBuilder
-func CoreComponentComposer(model: CoreComponentModel) -> some View {
+func LayoutComponentComposer(
+    model: LayoutComponentModel,
+    component: Component,
+    componentModelRetriever: @escaping (String) -> Component?
+) -> AnyView {
     switch model {
-    case let textModel as TextModel:
-        TextComponent(textModel)
-    case let buttonModel as ButtonModel:
-        ButtonComponent(buttonModel)
+    case _ as BoxModel:
+        return BoxComponent(component: component, componentModelRetriever: componentModelRetriever).toAny()
+    case _ as RowModel:
+        return RowComponent(component: component, componentModelRetriever: componentModelRetriever).toAny()
+    case _ as ColumnModel:
+        return ColumnComponent(component: component, componentModelRetriever: componentModelRetriever).toAny()
     default:
-        EmptyView()
-    }
-}
-
-@ViewBuilder
-func LayoutComponentComposer(model: ComponentModel, componentModelRetriever: @escaping (String) -> ComponentModel) -> some View {
-    switch model {
-    case let boxModel as BoxModel:
-        BoxComponent(boxModel: boxModel, componentModelRetriever: componentModelRetriever)
-    case let rowModel as RowModel:
-        RowComponent(rowModel: rowModel, componentModelRetriever: componentModelRetriever)
-    case let columnModel as ColumnModel:
-        ColumnComponent(columnModel: columnModel, componentModelRetriever: componentModelRetriever)
-    default:
-        EmptyView()
+        return EmptyView().toAny()
     }
 }
