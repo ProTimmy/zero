@@ -1,13 +1,12 @@
 package com.zero.components
 
 import androidx.compose.runtime.Composable
-import arrow.core.Option
+import com.zero.common.component.Component
 import com.zero.components.core.ButtonComponent
 import com.zero.components.core.TextComponent
 import com.zero.components.layouts.BoxComponent
 import com.zero.components.layouts.ColumnComponent
 import com.zero.components.layouts.RowComponent
-import com.zero.models.ComponentModel
 import com.zero.models.core.ButtonModel
 import com.zero.models.core.CoreComponentModel
 import com.zero.models.core.TextModel
@@ -18,31 +17,32 @@ import com.zero.models.layouts.RowModel
 
 @Composable
 fun ComponentComposer(
-    model: ComponentModel,
-    componentModelRetriever: (String) -> Option<ComponentModel>
+    component: Component,
+    componentModelRetriever: (String) -> Component?
 ) {
-    when (model) {
-        is CoreComponentModel -> CoreComponentComposer(model)
-        is LayoutComponentModel -> LayoutComponentComposer(model, componentModelRetriever)
+
+    when (component.state.value.componentModel) {
+        is CoreComponentModel -> CoreComponentComposer(component)
+        is LayoutComponentModel -> LayoutComponentComposer(component, componentModelRetriever)
     }
 }
 
 @Composable
-private fun CoreComponentComposer(model: CoreComponentModel) {
-    when (model) {
-        is ButtonModel -> ButtonComponent(model)
-        is TextModel -> TextComponent(model)
+private fun CoreComponentComposer(component: Component) {
+    when (component.state.value.componentModel) {
+        is ButtonModel -> ButtonComponent(component)
+        is TextModel -> TextComponent(component)
     }
 }
 
 @Composable
 private fun LayoutComponentComposer(
-    model: LayoutComponentModel,
-    componentModelRetriever: (String) -> Option<ComponentModel>
+    component: Component,
+    componentModelRetriever: (String) -> Component?
 ) {
-    when (model) {
-        is BoxModel -> BoxComponent(model, componentModelRetriever)
-        is ColumnModel -> ColumnComponent(model, componentModelRetriever)
-        is RowModel -> RowComponent(model, componentModelRetriever)
+    when (component.state.value.componentModel) {
+        is BoxModel -> BoxComponent(component, componentModelRetriever)
+        is ColumnModel -> ColumnComponent(component, componentModelRetriever)
+        is RowModel -> RowComponent(component, componentModelRetriever)
     }
 }

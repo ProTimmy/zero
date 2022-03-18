@@ -31,9 +31,6 @@ kotlin {
                 implementation(project(":common"))
 				api(project(":models"))
 
-                // Arrow
-                implementation("io.arrow-kt:arrow-core:1.0.1")
-
                 // Compose
 				implementation(compose.runtime)
 				implementation(compose.foundation)

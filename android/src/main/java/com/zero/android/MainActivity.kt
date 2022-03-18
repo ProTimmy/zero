@@ -14,7 +14,13 @@ import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.zero.common.root.RootComponent
 import com.zero.common.root.RootComponent.Child.Screen
 import com.zero.common.root.RootController
-import com.zero.components.core.ScreenComponent
+import com.zero.common.screen.store.ScreenStore.ScreenIntent.UpdateModel
+import com.zero.components.ScreenComponent
+import com.zero.models.ComponentModel
+import com.zero.models.core.ButtonModel
+import com.zero.models.core.TextModel
+import com.zero.models.layouts.ColumnModel
+import com.zero.models.layouts.RowModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
