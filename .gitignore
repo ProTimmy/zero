@@ -10,6 +10,7 @@
 .cxx
 local.properties
 /kotlin-js-store
+*/gen
 
 # ios
 /ios/ios.xcodeproj/xcuserdata
