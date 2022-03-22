@@ -20,7 +20,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false // iOS
 
     // Compose
-    id("org.jetbrains.compose") version "1.1.0"
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev620"
 
     // Gradle
     id("com.github.ben-manes.versions") version "0.42.0" // TODO: Configure auto-reporting in Gradle build
