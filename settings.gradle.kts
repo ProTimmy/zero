@@ -13,5 +13,6 @@ include(":components")
 include(":models")
 
 include(":android")
-include(":desktop")
 include(":ios")
+include(":desktop")
+include(":web")
