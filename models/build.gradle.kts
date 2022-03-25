@@ -35,16 +35,6 @@ kotlin {
 	}
 
 	ios()
-//	ios {
-//		binaries {
-//			framework {
-//				baseName = "models"
-//			}
-//		}
-//	}
-//	iosX64()
-//	iosArm64()
-//	iosSimulatorArm64()
 
 	sourceSets {
 		val commonMain by getting {

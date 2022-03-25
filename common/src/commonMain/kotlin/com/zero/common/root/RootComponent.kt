@@ -8,6 +8,8 @@ interface RootComponent {
     val routerState: Value<RouterState<*, Child>>
 
     sealed class Child {
+        object Loading : Child()
+
         data class Screen(val component: com.zero.common.screen.Screen) : Child()
     }
 }

@@ -39,6 +39,8 @@ internal constructor(
             childFactory = ::createComponent
         )
 
+    private val rootRepository = RootRepository()
+
     override val routerState: Value<RouterState<*, Child>> = router.state
 
     private fun createComponent(
@@ -46,10 +48,14 @@ internal constructor(
         componentContext: ComponentContext
     ): Child =
         when (configuration) {
+            is Configuration.Loading -> Child.Loading
             is Configuration.Screen -> Child.Screen(screen(componentContext))
         }
 
     sealed class Configuration : Parcelable {
+        @Parcelize
+        object Loading : Configuration()
+
         @Parcelize
         object Screen : Configuration()
     }

@@ -1,0 +1,11 @@
+CREATE TABLE Screens (
+  id TEXT NOT NULL PRIMARY KEY,
+  screenModel TEXT NOT NULL
+);
+
+insertNewScreen:
+INSERT OR REPLACE INTO Screens(id, screenModel)
+VALUES (?, ?);
+
+selectById:
+SELECT * FROM Screens WHERE id = ?;
