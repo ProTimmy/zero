@@ -47,7 +47,7 @@ val ComponentSerializerModule = SerializersModule {
     }
 }
 
-class ComponentModelEngine {
+object ComponentModelEngine {
     private val jsonBuilder = Json { serializersModule = ComponentSerializerModule }
 
     fun fromJsonString(json: String?): List<ComponentModel>? {

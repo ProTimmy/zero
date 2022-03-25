@@ -21,12 +21,4 @@ fun ScreenComponent(screen: Screen) {
             }
         }
     }
-
-    if (model.rootComponents.isEmpty()) {
-        Button(
-            onClick = screen::initDemo,
-        ) {
-            Text("Click Here")
-        }
-    }
 }
