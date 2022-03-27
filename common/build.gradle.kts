@@ -34,18 +34,6 @@ kotlin {
 		}
 	}
 
-//	ios {
-//		binaries {
-//			framework {
-//				baseName = "common"
-//
-//                linkerOpts.add("-lsqlite3")
-//
-//				// SQLDelight
-////				export("com.squareup.sqldelight:native-driver:1.5.3")
-//			}
-//		}
-//	}
     ios()
     iosX64()
     iosArm64()

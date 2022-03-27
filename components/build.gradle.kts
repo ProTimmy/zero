@@ -38,8 +38,8 @@ kotlin {
 				implementation(compose.material)
 
                 // Decompose
-                implementation("com.arkivanov.decompose:decompose:0.5.1")
-                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.1")
+                implementation("com.arkivanov.decompose:decompose:0.5.2")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.2")
 			}
 		}
 		val commonTest by getting {
