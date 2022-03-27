@@ -12,22 +12,22 @@ import com.arkivanov.decompose.extensions.compose.jetbrains.animation.child.cros
 import com.arkivanov.mvikotlin.logging.store.LoggingStoreFactory
 import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.zero.common.root.RootComponent
+import com.zero.common.root.RootComponent.Child.Loading
 import com.zero.common.root.RootComponent.Child.Screen
 import com.zero.common.root.RootController
-import com.zero.common.screen.store.ScreenStore.ScreenIntent.UpdateModel
+import com.zero.components.LoadingComponent
 import com.zero.components.ScreenComponent
-import com.zero.models.ComponentModel
-import com.zero.models.core.ButtonModel
-import com.zero.models.core.TextModel
-import com.zero.models.layouts.ColumnModel
-import com.zero.models.layouts.RowModel
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val rootComponent = createRootComponent(defaultComponentContext())
+        val id = rootComponent.storeDemoScreen()
+        rootComponent.getScreenById(id)
+
         setContent {
-            MainContent(createRootComponent(defaultComponentContext()))
+            MainContent(rootComponent)
         }
     }
 }
@@ -43,6 +43,7 @@ private fun createRootComponent(componentContext: ComponentContext): RootCompone
 fun MainContent(rootComponent: RootComponent) {
     Children(routerState = rootComponent.routerState, animation = crossfadeScale()) {
         when (val child = it.instance) {
+            is Loading -> LoadingComponent()
             is Screen -> ScreenComponent(child.component)
         }
     }

@@ -12,8 +12,6 @@ interface Screen {
         val rootComponents: List<String>,
     )
 
-    fun initDemo()
-
     fun initScreen(componentModels: List<ComponentModel>, rootComponents: List<String>)
 
     fun updateModel(componentId: String) // TODO: Implement real functionality

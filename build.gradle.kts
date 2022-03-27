@@ -13,11 +13,12 @@ buildscript {
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
         classpath("com.android.tools.build:gradle:7.2.0-alpha07")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.3")
     }
 }
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.6.10" apply false // iOS
+    kotlin("jvm") version "1.6.10" apply false // iOS
 
     // Compose
     id("org.jetbrains.compose") version "1.2.0-alpha01-dev620"

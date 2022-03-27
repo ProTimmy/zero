@@ -13,7 +13,7 @@ fun ButtonComponent(component: Component) {
     val model = modelState.value.componentModel as? ButtonModel
 
     model?.let {
-        Button(onClick = model.onClick) {
+        Button(onClick = { }) {
             Text(model.text)
         }
     }

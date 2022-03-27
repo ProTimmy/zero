@@ -1,11 +1,14 @@
 package com.zero.models.layouts
 
+import com.benasher44.uuid.uuid4
+import com.zero.models.ComponentModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-@SerialName(LayoutComponentModel.BOX_MODEL)
+@SerialName(ComponentModel.BOX_MODEL)
 data class BoxModel(
+    override val id: String = uuid4().toString(),
     override val isRoot: Boolean = false,
     val childComponents: List<String> = listOf(),
-) : LayoutComponentModel()
+) : ComponentModel()
