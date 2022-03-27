@@ -15,7 +15,7 @@ public struct ButtonComponent: View {
 
     public var body : some View {
         if let buttonModel = componentState.value.componentModel as? ButtonModel {
-            Button(action: buttonModel.onClick) {
+            Button(action: { }) {
                 Text(buttonModel.text)
             }
         } else {

@@ -20,11 +20,13 @@ struct ScreenView: View {
                 ComponentComposer(id: componentId, componentModelRetriever: screen.getComponentModel)
             }
         }
+    }
+}
 
-        if (model.value.rootComponents.isEmpty) {
-            Button(action: screen.doInitDemo) {
-                Text("Click Me!")
-            }
+struct LoadingView: View {
+    var body: some View {
+        ZStack(alignment: .center) {
+            ProgressView()
         }
     }
 }

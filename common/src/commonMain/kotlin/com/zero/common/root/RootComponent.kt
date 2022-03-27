@@ -11,7 +11,7 @@ interface RootComponent {
     fun getScreenById(id: String)
 
     // TODO: Remove Test Functions
-    fun storeScreen(componentModels: List<ComponentModel>): String
+    fun storeDemoScreen(): String
 
     sealed class Child {
         object Loading : Child()

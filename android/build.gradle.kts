@@ -38,11 +38,9 @@ android {
 }
 
 tasks.withType<KotlinCompile> {
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
-        }
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 }
 
@@ -74,12 +72,12 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.ui)
                 implementation(compose.material)
+                implementation("androidx.activity:activity-compose:1.4.0")
                 implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-                implementation("androidx.activity:activity-compose:1.5.0-alpha01")
 
                 // Decompose
-                implementation("com.arkivanov.decompose:decompose:0.5.1")
-                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.1")
+                implementation("com.arkivanov.decompose:decompose:0.5.2")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:0.5.2")
 
                 // MVIKotlin
                 implementation("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")

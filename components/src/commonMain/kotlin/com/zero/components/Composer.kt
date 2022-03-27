@@ -18,7 +18,6 @@ fun ComponentComposer(
     component: Component,
     componentModelRetriever: (String) -> Component?
 ) {
-
     when (component.state.value.componentModel) {
         // Core Components
         is ButtonModel -> ButtonComponent(component)

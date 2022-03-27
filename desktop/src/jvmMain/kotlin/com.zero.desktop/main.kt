@@ -16,13 +16,11 @@ import com.arkivanov.mvikotlin.timetravel.store.TimeTravelStoreFactory
 import com.badoo.reaktive.coroutinesinterop.asScheduler
 import com.badoo.reaktive.scheduler.overrideSchedulers
 import com.zero.common.root.RootComponent
-import com.zero.common.root.RootComponent.Child
 import com.zero.common.root.RootComponent.Child.Loading
 import com.zero.common.root.RootComponent.Child.Screen
 import com.zero.common.root.RootController
 import com.zero.components.LoadingComponent
 import com.zero.components.ScreenComponent
-import com.zero.models.ComponentModel
 import com.zero.models.core.ButtonModel
 import com.zero.models.core.TextModel
 import com.zero.models.layouts.ColumnModel
@@ -36,7 +34,7 @@ fun main() {
 
     val lifecycle = LifecycleRegistry()
     val rootComponent = createRootComponent(DefaultComponentContext(lifecycle = lifecycle))
-    val id = rootComponent.storeScreen(DEMO_COMPONENTS)
+    val id = rootComponent.storeDemoScreen()
     rootComponent.getScreenById(id)
 
     application {

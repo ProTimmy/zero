@@ -17,6 +17,8 @@ public struct RootView: View {
         let child = routerState.value.activeChild.instance
         
         switch child {
+        case let _ as RootComponentChild.Loading:
+            LoadingView()
         case let child as RootComponentChild.Screen:
             ScreenView(child.component)
         default:

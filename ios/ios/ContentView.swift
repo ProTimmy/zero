@@ -5,10 +5,14 @@ struct ContentView: View {
     @State
     private var componentHolder =
         ComponentHolder<RootComponent> {
-            RootController(
+            let rootController = RootController(
                 componentContext: $0,
                 storeFactory: LoggingStoreFactory(delegate: TimeTravelStoreFactory())
             )
+            let screenId = rootController.storeDemoScreen()
+            rootController.getScreenById(id: screenId)
+            
+            return rootController
         }
 
     var body: some View {
@@ -16,13 +20,8 @@ struct ContentView: View {
             RootView(componentHolder.component)
                 .onAppear { LifecycleRegistryExtKt.resume(componentHolder.lifecycle) }
                 .onDisappear { LifecycleRegistryExtKt.resume(componentHolder.lifecycle) }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.center)
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
 

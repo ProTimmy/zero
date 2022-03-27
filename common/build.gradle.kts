@@ -2,7 +2,10 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	kotlin("multiplatform")
+    kotlin("native.cocoapods")
+
 	id("com.android.library")
+
     id("kotlin-parcelize")
     id("com.squareup.sqldelight")
 }
@@ -31,25 +34,43 @@ kotlin {
 		}
 	}
 
-	ios {
-		binaries {
-			framework {
-				baseName = "common"
-				transitiveExport = true
-				isStatic = true
+//	ios {
+//		binaries {
+//			framework {
+//				baseName = "common"
+//
+//                linkerOpts.add("-lsqlite3")
+//
+//				// SQLDelight
+////				export("com.squareup.sqldelight:native-driver:1.5.3")
+//			}
+//		}
+//	}
+    ios()
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+    cocoapods {
+        summary = "Some description for the Common Module"
+        homepage = "Link to the Common Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../ios/Podfile")
+        framework {
+            baseName = "common"
+            transitiveExport = true
+            isStatic = true
 
-				export(project(":models"))
+            export(project(":models"))
 
-				// Decompose
-				export("com.arkivanov.decompose:decompose:0.5.1")
+            // Decompose
+            export("com.arkivanov.decompose:decompose:0.5.2")
 
-				// MVIKotlin
-				export("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
-				export("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
-				export("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
-			}
-		}
-	}
+            // MVIKotlin
+            export("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
+            export("com.arkivanov.mvikotlin:mvikotlin-logging:3.0.0-beta01")
+            export("com.arkivanov.mvikotlin:mvikotlin-timetravel:3.0.0-beta01")
+        }
+    }
 
 	sourceSets {
 		val commonMain by getting {
@@ -60,7 +81,7 @@ kotlin {
 				implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 
 				// Decompose
-				implementation("com.arkivanov.decompose:decompose:0.5.1")
+				implementation("com.arkivanov.decompose:decompose:0.5.2")
 
 				// Reaktive
 				implementation("com.badoo.reaktive:reaktive:1.2.1")
@@ -104,7 +125,7 @@ kotlin {
 				api(project(":models"))
 
 				// Decompose
-				api("com.arkivanov.decompose:decompose:0.5.1")
+				api("com.arkivanov.decompose:decompose:0.5.2")
 
 				// MVIKotlin
 				api("com.arkivanov.mvikotlin:mvikotlin:3.0.0-beta01")
@@ -117,7 +138,22 @@ kotlin {
 
 		}
 		val iosTest by getting
-	}
+        val iosX64Main by getting {
+            dependencies {
+                dependsOn(iosMain)
+            }
+        }
+        val iosArm64Main by getting {
+            dependencies {
+                dependsOn(iosMain)
+            }
+        }
+        val iosSimulatorArm64Main by getting {
+            dependencies {
+                dependsOn(iosMain)
+            }
+        }
+    }
 }
 
 tasks.withType<KotlinCompile> {
