@@ -15,3 +15,4 @@ local.properties
 # ios
 /ios/ios.xcodeproj/xcuserdata
 /ios/ios.xcworkspace/xcuserdata
+/ios/Pods/Pods.xcodeproj/xcuserdata
